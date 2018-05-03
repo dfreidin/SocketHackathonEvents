@@ -4,9 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
     <title>Login</title>
 </head>
 <body>
-    
+    <div id="container">
+        <div id="welcome">
+            <h1>Welcome to our Chat</h1>
+        </div>
+        
+        <div id="login">
+            <h3 id="log">Login</h3>
+            <form action="/process" method="POST" id="form">
+                <p id="name">Your name:</p>
+                <input type="text" name="name" id="input"><br>
+                <input type="submit" value="Login" id="log_button">
+            </form>
+        </div>
+    </div>
 </body>
 </html>
