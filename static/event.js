@@ -5,18 +5,19 @@ function appendToChat(msg) {
 
 $(document).ready(function(){
     var socket = io();
-    io.emit("join_room", {room: $("#chatroom").attr("data-room"), username: $("#chatroom").attr("data-username")});
-    io.on("past_chat", function(data){
+    console.log("joining room: " + $("#chatroom").attr("data-room") + " as: " + $("#chatroom").attr("data-username"));
+    socket.emit("join_room", {room: $("#chatroom").attr("data-room"), username: $("#chatroom").attr("data-username")});
+    socket.on("past_chat", function(data){
         for(var i=0; i<data.messages.length; i++) {
             appendToChat(data.messages[i]);
         }
     });
-    io.on("new_message", function(data){
-        appendToChat(data.msg);
+    socket.on("new_message", function(data){
+        appendToChat(data);
     });
     $("#chat_form").submit(function(e){
         e.preventDefault();
-        io.emit("post_message", {msg: $("#chat_message").val()});
+        socket.emit("post_message", {msg: $("#chat_message").val()});
         $(this)[0].reset();
     });
 });
