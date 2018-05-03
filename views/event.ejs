@@ -10,6 +10,10 @@
     <script src="/event.js"></script>
 </head>
 <body>
-    <div id="chatroom"></div>
+    <div id="chatroom" data-room="<%= event_id %>" data-username="<%= username %>"></div>
+    <form id="chat_form">
+        <p><input type="text" name="message" id="chat_message"></p>
+        <p><input type="submit" value="Send"></p>
+    </form>
 </body>
 </html>
