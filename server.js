@@ -15,8 +15,14 @@ app.use(session({
 var socket_users = {};
 var chat_rooms = {};
 app.get("/", function(req, res){
-    res.render("event", {event_id: 1, username: "dfreidin"})
-})
+    res.render("index");
+});
+app.get("/login", function(req, res){
+    res.render("login");
+});
+app.get("/event/:id", function(req, res){
+    res.render("event", {event_id: req.params.id, username: "dfreidin"});
+});
 server = app.listen(8000);
 const io = require("socket.io")(server);
 io.on("connection", function(socket){
