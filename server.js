@@ -39,4 +39,8 @@ io.on("connection", function(socket){
         chat_rooms[socket_users[socket.id][1]].push(message);
         io.in(socket_users[socket.id][1]).emit("new_message", message);
     });
+    socket.on("disconnect", function(data){
+        console.log("disconnecting " + socket_users[socket.id][0]);
+        delete socket_users[socket.id];
+    });
 });
