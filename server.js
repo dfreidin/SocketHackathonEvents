@@ -14,4 +14,22 @@ app.use(session({
     cookie: {maxAge: 60000}
 }));
 var socket_users = {};
+var chat_rooms = {};
+io.on("connection", function(socket){
+    socket.on("join_room", function(data){
+        socket.join(data.room);
+        socket_users[socket.id] = [data.username, data.room];
+        if(chat_rooms[data.room]) {
+            socket.emit("past_chat", {messages: chat_rooms[data.room]});
+        }
+        else {
+            chat_rooms[data.room] = [];
+        }
+    });
+    socket.on("post_message", function(data){
+        var message = {username: socket_users[socket.id][0], msg = data.msg}
+        chat_rooms[data.room].push(message);
+        io.in(socket_users[socket.id][1]).emit("new_message", message);
+    });
+});
 app.listen(8000);
