@@ -14,4 +14,9 @@ $(document).ready(function(){
     io.on("new_message", function(data){
         appendToChat(data.msg);
     });
+    $("#chat_form").submit(function(e){
+        e.preventDefault();
+        io.emit("post_message", {msg: $("#chat_message").val()});
+        $(this)[0].reset();
+    });
 });
