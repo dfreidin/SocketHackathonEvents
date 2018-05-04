@@ -1,26 +1,32 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const session = require("express-session");
+const session = require("express-session")({
+    secret: "swordfish",
+    resave: true,
+    saveUninitialized: true
+});
+const sharedSession = require("express-socket.io-session");
 app.use(express.static(__dirname + "/static"));
 app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(session({
-    secret: "swordfish",
-    resave: true,
-    saveUninitialized: true
-}));
+app.use(session);
 var socket_users = {};
 var chat_rooms = {};
 app.get("/", function(req, res){
-    res.render("index");
+    if(req.session.name) {
+        res.render("index");
+    }
+    else {
+        res.redirect("/login");
+    }
 });
 app.get("/login", function(req, res){
     res.render("login");
 });
 app.post("/process", function(req, res){
-    if(req.body.name){
+    if(req.body["name"]){
         req.session.name = req.body.name;
         res.redirect("/");
     }
@@ -29,15 +35,21 @@ app.post("/process", function(req, res){
     }
 });
 app.get("/events/:id", function(req, res){
-    res.render("event", {event_id: req.params.id, username: req.session.name});
+    if(req.session.name) {
+        res.render("event", {event_id: req.params.id});
+    }
+    else {
+        res.redirect("/login");
+    }
 });
 server = app.listen(8000);
 const io = require("socket.io")(server);
+io.use(sharedSession(session, {autoSave: true}));
 io.on("connection", function(socket){ 
     socket.on("join_room", function(data){
         console.log(data.username + " is joining room " + data.room);
         socket.join(data.room);
-        socket_users[socket.id] = [data.username, data.room];
+        socket_users[socket.id] = [socket.handshake.session.name, data.room];
         if(chat_rooms[data.room]) {
             console.log("sending chat logs for room " + data.room);
             socket.emit("past_chat", {messages: chat_rooms[data.room]});
