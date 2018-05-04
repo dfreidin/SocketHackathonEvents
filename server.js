@@ -8,9 +8,8 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({
     secret: "swordfish",
-    resave: false,
-    saveUninitialized: true,
-    cookie: {maxAge: 60000}
+    resave: true,
+    saveUninitialized: true
 }));
 var socket_users = {};
 var chat_rooms = {};
