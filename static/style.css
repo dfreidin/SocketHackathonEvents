@@ -1,20 +1,22 @@
-#container {
+body{
     background-image: url("chat-dienste-t.jpg");
     background-repeat: no-repeat;
+}
+#container {
     display: inline-block;
     width: 970px;
     height: 970px;
+    text-align: center;
 }
 #welcome {
-    background-color: transparent;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     color: rgb(49, 87, 153);
-    margin-left: 33%;
+    /* margin-left: 33%; */
 }
 #login {
     display: inline-block;
     text-align: center;
-    margin-left: 40%;
+    /* margin-left: 40%; */
     border: 4px outset rgb(49, 87, 153);
     width: 200px;
     padding: 10px;
