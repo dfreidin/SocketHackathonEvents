@@ -34,7 +34,7 @@ app.get("/events/:id", function(req, res){
 });
 server = app.listen(8000);
 const io = require("socket.io")(server);
-io.on("connection", function(socket){
+io.on("connection", function(socket){ 
     socket.on("join_room", function(data){
         console.log(data.username + " is joining room " + data.room);
         socket.join(data.room);
