@@ -55,7 +55,9 @@ io.on("connection", function(socket){
         io.in(socket_users[socket.id][1]).emit("new_message", message);
     });
     socket.on("disconnect", function(data){
-        console.log("disconnecting " + socket_users[socket.id][0]);
-        delete socket_users[socket.id];
+        if(socket_users[socket.id]) {
+            console.log("disconnecting " + socket_users[socket.id][0]);
+            delete socket_users[socket.id];
+        }
     });
 });
