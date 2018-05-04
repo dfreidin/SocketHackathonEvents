@@ -1,0 +1,47 @@
+body{
+    background-image: url("chat-dienste-t.jpg");
+    background-repeat: no-repeat;
+}
+#container {
+    display: inline-block;
+    width: 970px;
+    height: 970px;
+    text-align: center;
+}
+#welcome {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: rgb(49, 87, 153);
+    /* margin-left: 33%; */
+}
+#login {
+    display: inline-block;
+    text-align: center;
+    /* margin-left: 40%; */
+    border: 4px outset rgb(49, 87, 153);
+    width: 200px;
+    padding: 10px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: rgb(49, 87, 153);
+}
+#form {
+    display: inline-block;
+ 
+}
+#name {
+    display: inline-block; 
+    margin-top: 0px;
+}
+#input {
+    display: inline-block;
+    width: 150px;
+    height: 20px;
+    margin-bottom: 10px;
+    border: 1px ridge rgb(49, 87, 153);
+}
+#log_button {
+    display: inline-block;
+    width: 70px;
+    padding-top:10px;
+    font-size: 30px;
+   
+}

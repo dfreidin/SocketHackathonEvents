@@ -14,11 +14,24 @@ app.use(session({
 }));
 var socket_users = {};
 var chat_rooms = {};
-
-app.get("/index", function(req, res){
+app.get("/", function(req, res){
     res.render("index");
-})
-
+});
+app.get("/login", function(req, res){
+    res.render("login");
+});
+app.post("/process", function(req, res){
+    if(req.body.name){
+        req.session.name = req.body.name;
+        res.redirect("/");
+    }
+    else{
+        res.redirect("/login");
+    }
+});
+app.get("/events/:id", function(req, res){
+    res.render("event", {event_id: req.params.id, username: req.session.name});
+});
 server = app.listen(8000);
 const io = require("socket.io")(server);
 io.on("connection", function(socket){ 
@@ -40,5 +53,11 @@ io.on("connection", function(socket){
         var message = {username: socket_users[socket.id][0], msg: data.msg}
         chat_rooms[socket_users[socket.id][1]].push(message);
         io.in(socket_users[socket.id][1]).emit("new_message", message);
+    });
+    socket.on("disconnect", function(data){
+        if(socket_users[socket.id]) {
+            console.log("disconnecting " + socket_users[socket.id][0]);
+            delete socket_users[socket.id];
+        }
     });
 });
