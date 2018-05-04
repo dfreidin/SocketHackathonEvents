@@ -1,5 +1,5 @@
 body{
-    background-image: url("chat-dienste-t.jpg");
+    background-image: url("/images/chat-dienste-t.jpg");
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -41,7 +41,9 @@ body{
 }
 #log_button {
     display: inline-block;
-    padding-top:10px;
-    font-size: 30px;
+    padding:10px;
+    font-size: 16pt;
+    background-color: rgb(49, 87, 153);
+    color: white;
    
 }

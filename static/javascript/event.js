@@ -2,6 +2,10 @@ function appendToChat(msg) {
     var str = "<p><span class='chat_username'>" + msg.username + "</span>: <span class='chat_message'>" + msg.msg + "</span></p>";
     $("#chatroom").append(str);
 }
+function scrollChat() {
+    el = document.getElementById("chatroom");
+    el.scrollTop = el.scrollHeight;
+}
 
 $(document).ready(function(){
     var socket = io();
@@ -11,9 +15,11 @@ $(document).ready(function(){
         for(var i=0; i<data.messages.length; i++) {
             appendToChat(data.messages[i]);
         }
+        scrollChat();
     });
     socket.on("new_message", function(data){
         appendToChat(data);
+        scrollChat();
     });
     $("#chat_form").submit(function(e){
         e.preventDefault();

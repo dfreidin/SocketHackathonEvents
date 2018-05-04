@@ -8,14 +8,14 @@
     <title>Event</title>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
     <script src='/socket.io/socket.io.js'></script>
-    <script src="/event.js"></script>
+    <script src="/javascript/event.js"></script>
 </head>
 <body>
     <div id="left">
         <div id="chatroom" data-room="<%= event_id %>"></div>
         <form id="chat_form">
-            <p><input type="text" name="message" id="chat_message"></p>
-            <p><input type="submit" value="Send" id="button"></p>
+            <p><input type="text" name="message" id="chat_message">
+            <input type="submit" value="Send" id="button"></p>
         </form>
     </div>    
     <div id="info">

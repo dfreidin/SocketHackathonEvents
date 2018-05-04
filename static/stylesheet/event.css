@@ -12,7 +12,7 @@ body {
     background-color: rgb(12, 23, 83);
     color: snow;
     padding: 10px;
-    font-size: 16px;
+    font-size: 20px;
     margin-top: 20px;
     overflow-wrap: break-word;
     hyphens: auto;
@@ -28,21 +28,25 @@ body {
     font-size: 16px;
 }
 #button {
-    font-size: 60px;
-    padding: 30px;
+    /* font-size: 60px;
+    padding: 30px; */
+    font-size: 14pt;
+    padding: 8px;
+    background-color: chartreuse;
+    font-weight: bold;
 
 }
-.chat_message {
-    display: inline-block;
-    width: 400px;
+.chat_username {
+    color: yellow;
 }
 #left {
     display: inline-block;
     vertical-align: top;
     width: 600px;
+    margin-left: 5%;
 }
 #info {
-    display: inline-block;
+    /* display: inline-block; */
     vertical-align: top;
     color: snow;
     border: 5px solid rgb(156, 228, 41);
@@ -50,6 +54,8 @@ body {
     padding: 10px;
     font-size: 16px;
     margin-top: 20px;
+    margin-right: 5%;
+    float: right;
     
 }
 
