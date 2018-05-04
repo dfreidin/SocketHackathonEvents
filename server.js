@@ -14,12 +14,14 @@ app.use(session({
 }));
 var socket_users = {};
 var chat_rooms = {};
-app.get("/", function(req, res){
-    res.render("event", {event_id: 1, username: "dfreidin"})
+
+app.get("/index", function(req, res){
+    res.render("index");
 })
+
 server = app.listen(8000);
 const io = require("socket.io")(server);
-io.on("connection", function(socket){
+io.on("connection", function(socket){ 
     socket.on("join_room", function(data){
         console.log(data.username + " is joining room " + data.room);
         socket.join(data.room);
