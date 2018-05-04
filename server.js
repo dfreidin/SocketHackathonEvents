@@ -14,6 +14,19 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(session);
 
+var concerts = [
+    {
+        city: "San Francisco, CA",
+        venue: "Bill Graham Civic Auditorium",
+        event_id: 0
+    },
+    {
+        city: "Las Vegas, NV",
+        venue: "Encore Beach Club",
+        event_id: 1
+    }
+]
+
 // Create routes
 app.get("/", function(req, res){
     if(req.session.name) {
@@ -37,7 +50,7 @@ app.post("/process", function(req, res){
 });
 app.get("/events/:id", function(req, res){
     if(req.session.name) {
-        res.render("event", {event_id: req.params.id});
+        res.render("event", concerts[req.params.id]);
     }
     else {
         res.redirect("/login");
@@ -69,10 +82,15 @@ io.on("connection", function(socket){
         }
     });
     socket.on("post_message", function(data){
-        console.log("received message from " + socket_users[socket.id][0] + ": " + data.msg);
-        var message = {username: socket_users[socket.id][0], msg: data.msg}
-        chat_rooms[socket_users[socket.id][1]].push(message);
-        io.in(socket_users[socket.id][1]).emit("new_message", message);
+        if(socket_users[socket.id]) {
+            console.log("received message from " + socket_users[socket.id][0] + ": " + data.msg);
+            var message = {username: socket_users[socket.id][0], msg: data.msg}
+            chat_rooms[socket_users[socket.id][1]].push(message);
+            io.in(socket_users[socket.id][1]).emit("new_message", message);
+        }
+        else {
+            socket.emit("reload");
+        }
     });
     socket.on("disconnect", function(data){
         if(socket_users[socket.id]) {
