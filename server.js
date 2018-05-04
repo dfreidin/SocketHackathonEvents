@@ -20,8 +20,17 @@ app.get("/", function(req, res){
 app.get("/login", function(req, res){
     res.render("login");
 });
-app.get("/event/:id", function(req, res){
-    res.render("event", {event_id: req.params.id, username: "dfreidin"});
+app.post("/process", function(req, res){
+    if(req.body.name){
+        req.session.name = req.body.name;
+        res.redirect("/");
+    }
+    else{
+        res.redirect("/login");
+    }
+});
+app.get("/events/:id", function(req, res){
+    res.render("event", {event_id: req.params.id, username: req.session.name});
 });
 server = app.listen(8000);
 const io = require("socket.io")(server);
