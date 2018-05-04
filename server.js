@@ -1,3 +1,4 @@
+// Set up the server and modules we're using
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
@@ -12,8 +13,8 @@ app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(session);
-var socket_users = {};
-var chat_rooms = {};
+
+// Create routes
 app.get("/", function(req, res){
     if(req.session.name) {
         res.render("index");
@@ -42,7 +43,15 @@ app.get("/events/:id", function(req, res){
         res.redirect("/login");
     }
 });
+
+// Start server
 server = app.listen(8000);
+
+// Persistent storage for sockets
+var socket_users = {};  // {socket.id: [username, room]}
+var chat_rooms = {};    // {room: [{username, message}, {username, message}, ...]}
+
+// Set up sockets
 const io = require("socket.io")(server);
 io.use(sharedSession(session, {autoSave: true}));
 io.on("connection", function(socket){ 
